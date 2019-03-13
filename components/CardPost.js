@@ -2,6 +2,7 @@
 import { Text, View, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { Component } from 'react';
 import * as Animatable from 'react-native-animatable'
+import FotoService from '../src/services/FotoService';
 
 
 export default class CardPost extends Component {
@@ -15,20 +16,35 @@ export default class CardPost extends Component {
     }
 
     like = () => {
+        
+        let likersAtualizado = [
+            ...this.state.foto.likers
+        ]
+        if (!this.state.foto.likeada) {
+            likersAtualizado.push( { login: 'rafael' } )
+        } else {
+            likersAtualizado = likersAtualizado.filter((liker) => {
+                return liker.login !== 'rafael'
+            })
+        }
+        
         const fotoAtualizada = {
             ...this.state.foto,
-            likeada: !this.state.foto.likeada
+            likeada: !this.state.foto.likeada,
+            likers: likersAtualizado
         }
 
         this.setState({
             foto: fotoAtualizada
         })
+
+        FotoService.like(this.state.foto.id)
     }
 
     render() {
 
         const foto = this.state.foto
-
+        console.log(foto)
         return (
             <View style={styles.container}>
                 <View style={styles.header}>
@@ -46,8 +62,8 @@ export default class CardPost extends Component {
                     <LikeButton onPress={this.like} LikeActive={foto.likeada}>
 
                     </LikeButton>
-
-                    <Text>Descrição da fotinha</Text>
+                    
+                    <Text style={styles.fontBold}> {foto.likers.length} Likers, Curtido por: {foto.likers.length && foto.likers[0].login}</Text>
                 </View>
             </View>
         )
@@ -55,7 +71,6 @@ export default class CardPost extends Component {
 }
 
 class LikeButton extends Component {
-
     render() {
         const props = this.props
         return (
@@ -66,9 +81,10 @@ class LikeButton extends Component {
                 <Animatable.Image
                     ref={ (ref) => this.imagemDoBotao = ref } 
                     source={
-                    props.LikeActive
-                        ? require('../assets/s2.png')
-                        : require('../assets/s2-checked.png')}
+                        props.LikeActive
+                        ? require('../assets/s2-checked.png')
+                        : require('../assets/s2.png')
+                    }
                     style={styles.likebutton} />
 
             </TouchableOpacity>
@@ -86,5 +102,6 @@ const styles = StyleSheet.create({
     likebutton: { width: 30, height: 30 },
     headerTitle: { marginLeft: 10 },
     CardPostImage: { width: larguraTotal, height: larguraTotal },
-    footer: { padding: 15, alignItems: 'flex-start' }
+    footer: { padding: 15, alignItems: 'flex-start' },
+    fontBold: {fontWeight: 'bold'}
 })

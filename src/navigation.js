@@ -4,8 +4,9 @@ import { createStackNavigator, createAppContainer, createBottomTabNavigator, cre
 import * as Animatable from 'react-native-animatable'
 import LoginScreen from './Screens/LoginScreen'
 import AuthScreen from './Screens/AuthScreen';
+import FeedScreen from './Screens/FeedScreen';
 
-const FeedScreen = () => (<View><Text>TELA PRINCIPAL</Text></View>)
+
 const Profilecreen = () => (<View><Text>TELA PRINCIPAL</Text></View>)
 
 class SplashScreen extends React.Component {

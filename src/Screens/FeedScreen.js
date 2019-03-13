@@ -1,7 +1,8 @@
 
 import React, {Component} from 'react';
 import { ScrollView} from 'react-native';
-import CardPost from './components/CardPost'
+import CardPost from '../../components/CardPost'
+import FotoService from '../services/FotoService';
 
 
 export default class App extends Component {
@@ -10,10 +11,7 @@ export default class App extends Component {
 
   componentDidMount()
   {
-    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
-    .then((resposta)=> {
-        if(resposta.ok) return resposta.json()
-    })
+    FotoService.pegaOFeedComAsFotos()
     .then((respostaConvertidaEmObjeto)=> {
         this.setState({
           fotos: respostaConvertidaEmObjeto
