@@ -1,28 +1,18 @@
 import React from 'react'
-import { View, Text, Button } from 'react-native'
+import { View, Text } from 'react-native'
 import { createStackNavigator, createAppContainer, createBottomTabNavigator, createSwitchNavigator } from 'react-navigation'
 import * as Animatable from 'react-native-animatable'
+import LoginScreen from './Screens/LoginScreen'
+import AuthScreen from './Screens/AuthScreen';
 
 const FeedScreen = () => (<View><Text>TELA PRINCIPAL</Text></View>)
 const Profilecreen = () => (<View><Text>TELA PRINCIPAL</Text></View>)
-
-
-const LoginScreen = (props) => {
-    return (
-        <View>
-            <Text>Login Screen</Text>
-            <Button title="ir Para home" onPress={() => {
-                props.navigation.navigate('Home')
-            }}></Button>
-        </View>
-    )
-}
 
 class SplashScreen extends React.Component {
 
     componentDidMount() {
         setTimeout(() => {
-            const isUserAuthenticated = true
+            const isUserAuthenticated = false
             this.props.navigation
                 .navigate(isUserAuthenticated ? 'AreaLogado' : 'AreaDeslogado')
         }, 800)
@@ -54,9 +44,9 @@ const LogadoTabNavigation = createBottomTabNavigator({
 })
 
 const AppNavigator = createSwitchNavigator({
-    Splash: SplashScreen,
+    AreadeAutenticar: AuthScreen,
     AreaLogado: LogadoTabNavigation,
     AreaDeslogado: DeslogadoStack
-}, { initialRouteName: 'Splash' })
+}, { initialRouteName: 'AreadeAutenticar' })
 
 export default createAppContainer(AppNavigator)
