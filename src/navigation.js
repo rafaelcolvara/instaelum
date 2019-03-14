@@ -5,9 +5,8 @@ import * as Animatable from 'react-native-animatable'
 import LoginScreen from './Screens/LoginScreen'
 import AuthScreen from './Screens/AuthScreen';
 import FeedScreen from './Screens/FeedScreen';
-
-
-const Profilecreen = () => (<View><Text>TELA PRINCIPAL</Text></View>)
+import Deslogar from './Screens/Deslogar';
+import ProfileScreen from './Screens/ProfileScreen';
 
 class SplashScreen extends React.Component {
 
@@ -41,13 +40,15 @@ const DeslogadoStack = createStackNavigator({
 
 const LogadoTabNavigation = createBottomTabNavigator({
     Feed: { screen: FeedScreen },
-    Profile: { screen: Profilecreen }
+    Profile: { screen: ProfileScreen },
+    Logout: {screen: Deslogar }
 })
 
 const AppNavigator = createSwitchNavigator({
     AreadeAutenticar: AuthScreen,
     AreaLogado: LogadoTabNavigation,
-    AreaDeslogado: DeslogadoStack
+    AreaDeslogado: DeslogadoStack,
+    
 }, { initialRouteName: 'AreadeAutenticar' })
 
 export default createAppContainer(AppNavigator)

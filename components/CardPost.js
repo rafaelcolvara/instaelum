@@ -1,9 +1,9 @@
 
-import { Text, View, Image, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, Image, Dimensions, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import React, { Component } from 'react';
 import * as Animatable from 'react-native-animatable'
 import FotoService from '../src/services/FotoService';
-import { AsyncResource } from 'async_hooks';
+
 
 
 export default class CardPost extends Component {
@@ -16,9 +16,9 @@ export default class CardPost extends Component {
         }
     }
 
-    like = () => {
+    like  = async () => {
         
-        const usuario = await AsyncResource.getItem('CW_USERLOGIN')
+        const usuario = await AsyncStorage.getItem('CW_USERLOGIN')
 
         let likersAtualizado = [
             ...this.state.foto.likers
@@ -50,12 +50,13 @@ export default class CardPost extends Component {
         console.log(foto)
         return (
             <View style={styles.container}>
+                 
                 <View style={styles.header}>
                     <Image
                         style={styles.headerAvatar}
                         source={{ uri: foto.urlPerfil }} />
                     <Text style={styles.headerTitle}>@{foto.loginUsuario}</Text>
-                    {/*Reservador para o menu*/}
+                    {/*Reservado para o menu*/}
                 </View>
                 <Image
                     style={styles.CardPostImage}
@@ -106,5 +107,9 @@ const styles = StyleSheet.create({
     headerTitle: { marginLeft: 10 },
     CardPostImage: { width: larguraTotal, height: larguraTotal },
     footer: { padding: 15, alignItems: 'flex-start' },
-    fontBold: {fontWeight: 'bold'}
+    fontBold: {fontWeight: 'bold'},
+    formBtn : {
+        width: 400,
+        backgroundColor: 'red'
+    }
 })

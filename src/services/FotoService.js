@@ -2,6 +2,8 @@ import {AsyncStorage} from 'react-native';
  
 
 const API_URL = 'https://instalura-api.herokuapp.com/api/fotos';
+;
+
 export default class FotoService {
 
 
@@ -21,6 +23,7 @@ export default class FotoService {
 
             })
     }
+
 
 
     static async like(id)
