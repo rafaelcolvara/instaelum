@@ -5,8 +5,10 @@ import * as Animatable from 'react-native-animatable'
 import LoginScreen from './Screens/LoginScreen'
 import AuthScreen from './Screens/AuthScreen';
 import FeedScreen from './Screens/FeedScreen';
-import Deslogar from './Screens/Deslogar';
 import ProfileScreen from './Screens/ProfileScreen';
+import PostDetailsScreen from './Screens/PostDetailsScreen';
+import { FluidNavigator } from 'react-navigation-fluid-transitions';
+
 
 class SplashScreen extends React.Component {
 
@@ -40,9 +42,11 @@ const DeslogadoStack = createStackNavigator({
 
 const LogadoTabNavigation = createBottomTabNavigator({
     Feed: { screen: FeedScreen },
-    Profile: { screen: ProfileScreen },
-    Logout: {screen: Deslogar }
-})
+    Profile: FluidNavigator ({
+        ProfileHome: {screen: ProfileScreen},
+        PostDetail: {screen: PostDetailsScreen}
+    }),
+}, { initialRouteName: 'Profile'})
 
 const AppNavigator = createSwitchNavigator({
     AreadeAutenticar: AuthScreen,
