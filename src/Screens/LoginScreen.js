@@ -53,7 +53,9 @@ class LoginScreen extends React.Component {
 
             if (token) {
                 AsyncStorage.setItem('CW_TOKEN', token).then
-                (() => {this.props.navigation.navigate('AreadeAutenticar') })
+                (async () => {
+                    AsyncStorage.setItem('CW_USERLOGIN', dadosDoLogin.login)
+                    this.props.navigation.navigate('AreadeAutenticar') })
                 
             } else
             {throw new Error('Ocorreu um erro no servidor ao tentar fazer o login')}
