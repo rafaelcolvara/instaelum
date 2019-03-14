@@ -46,7 +46,7 @@ const LogadoTabNavigation = createBottomTabNavigator({
         ProfileHome: {screen: ProfileScreen},
         PostDetail: {screen: PostDetailsScreen}
     }),
-}, { initialRouteName: 'Profile'})
+}, { initialRouteName: 'Feed'})
 
 const AppNavigator = createSwitchNavigator({
     AreadeAutenticar: AuthScreen,

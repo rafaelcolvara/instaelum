@@ -1,13 +1,16 @@
 
 import React, {Component} from 'react';
-import { ScrollView} from 'react-native';
+import {View, FlatList} from 'react-native';
 import CardPost from '../../components/CardPost'
 import FotoService from '../services/FotoService';
+import CommentsArea from '../../components/ComponentArea';
+
 
 
 export default class App extends Component {
 
-  state = {fotos : []}
+  state = {fotos : [],
+  refreshando: false}
 
   componentDidMount()
   {
@@ -18,6 +21,15 @@ export default class App extends Component {
         })
     })
   }
+
+  pegaDados()
+  {
+    FotoService.pegaOFeedComAsFotos()
+    .then((fotos)=>{
+      console.warn('Refreshow!!')
+      this.setState({fotos: fotos})
+    })
+  }
   render() {
 
     
@@ -25,18 +37,28 @@ export default class App extends Component {
     
     // https:flexfrog.com
     return (
-      <ScrollView style={{backgroundColor: 'white'}}>
-        
-        {
-          fotos.map(function(foto, indice) {
-            return (
-                <CardPost key={indice} foto={foto} />
-            )
+      <View style={{backgroundColor: 'white'}}>
+        <CommentsArea></CommentsArea>
+        <FlatList
+          data={fotos}
+          onRefresh={() => {
+            this.setState({
+              refreshando: false
+            }, ()=> {
+              this.pegaDados()
+            })
+          }}
+          refreshing={this.state.refreshando}
+          renderItem={({item})=>{
+            return(<CardPost foto={item}></CardPost>)
+          }}
+          keyExtractor={(item, index)=> `item=${item}`}
+          >
           
-          })
-        }
+        </FlatList>
         
-      </ScrollView>
+        
+      </View>
     );
   }
 }
